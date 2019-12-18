@@ -1,0 +1,60 @@
+apiVersion: appsody.dev/v1beta1
+kind: AppsodyApplication
+metadata:
+  namespace: insurance-quote
+  name: quote-frontend
+  annotations:
+    commit.image.appsody.dev/author: Sami Joueidi <samijoueidi@Samis-MacBook-Pro-2.local>
+    commit.image.appsody.dev/committer: Sami Joueidi <samijoueidi@Samis-MacBook-Pro-2.local>
+    commit.image.appsody.dev/date: Sat Dec 14 07:20:02 2019 -0500
+    commit.image.appsody.dev/message: test change quote back
+    image.opencontainers.org/created: "2019-12-14T07:36:11-05:00"
+    image.opencontainers.org/documentation: https://github.com/onautogithub/quote-frontend
+    image.opencontainers.org/revision: a304403aeda1df5eda6d74294b6bcd8a882d4fc2
+    image.opencontainers.org/source: https://github.com/onautogithub/quote-frontend/tree/master
+    image.opencontainers.org/url: https://github.com/onautogithub/quote-frontend
+    stack.appsody.dev/authors: Chris Bailey <cnbailey@gmail.com>, Neeraj Laad <neeraj.laad@gmail.com>
+    stack.appsody.dev/configured: dev.local/my-nodejs-express:latest
+    stack.appsody.dev/created: "2019-12-12T17:48:00-05:00"
+    stack.appsody.dev/description: Express web framework for Node.js
+    stack.appsody.dev/licenses: Apache-2.0
+    stack.appsody.dev/tag: dev.local/my-nodejs-express:0.3.0
+    stack.appsody.dev/title: Node.js Express
+  creationTimestamp: null
+  labels:
+    image.opencontainers.org/title: quote-frontend
+    stack.appsody.dev/id: my-nodejs-express
+    stack.appsody.dev/version: 0.3.0
+spec:
+  applicationImage: docker-registry.default.svc:5000/insurance-quote/quote-frontend:v1
+  createKnativeService: false
+  env:
+  - name: BACKEND_URL
+    value: http://quote-backend-insurance-quote.mycloudpakforapplication-3bd815672b8dedd707c23f18284f65c7-0002.us-south.containers.appdomain.cloud/quote
+  expose: true
+  livenessProbe:
+    failureThreshold: 12
+    httpGet:
+      path: /live
+      port: 3000
+    initialDelaySeconds: 5
+    periodSeconds: 2
+  monitoring:
+    labels:
+      k8s-app: quote-frontend
+  readinessProbe:
+    failureThreshold: 12
+    httpGet:
+      path: /ready
+      port: 3000
+    initialDelaySeconds: 5
+    periodSeconds: 2
+    timeoutSeconds: 1
+  service:
+    annotations:
+      prometheus.io/scrape: "true"
+    port: 3000
+    type: NodePort
+  stack: nodejs-express
+  version: 1.0.0
+status: {}
