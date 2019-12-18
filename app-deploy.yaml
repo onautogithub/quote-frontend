@@ -1,8 +1,8 @@
 apiVersion: appsody.dev/v1beta1
 kind: AppsodyApplication
 metadata:
-  namespace: insurance-quote
   name: quote-frontend
+  namespace: insurance-quote
   annotations:
     commit.image.appsody.dev/author: Sami Joueidi <samijoueidi@Samis-MacBook-Pro-2.local>
     commit.image.appsody.dev/committer: Sami Joueidi <samijoueidi@Samis-MacBook-Pro-2.local>
